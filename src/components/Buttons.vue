@@ -1,13 +1,13 @@
 <template>
     <div class="container-fluid d-flex flex-column justify-content-center align-items-center mx-0 p-5 bg-light">
-        <h2>Funcionarà??? Quin misteri...</h2>
+        <h2>Funcionarà???</h2>
         <div class="container d-flex justify-content-center align-items-center m-auto mt-4 ">
-            <button @click="mostrarON()" type="button" class="btn btn-success m-3 fuente">ON</button>
-            <button @click="mostrarOFF()" type="button" class="btn btn-danger m-3 fuente">OFF</button>
+            <button @click="enviarEstado('ON')" type="submit" class="btn btn-success m-3 fuente">ON</button>
+            <button @click="enviarEstado('OFF')" type="submit" class="btn btn-danger m-3 fuente">OFF</button>
         </div>
     </div>
     <div class="container-fluid d-flex flex-column justify-content-center align-items-center mx-0 bg-light">
-        <h3>El LED està: <span class="fuente2">{{ estado_led }}</span></h3>
+        <h3>El LED està: <span class="fuente2">{{ respuesta }}</span></h3>
         <div class="container d-flex justify-content-center align-items-center m-auto mt-3 ">
             
         </div>
@@ -30,18 +30,25 @@
 </style>
 
 <script setup>
+import axios from 'axios';
 import { ref } from 'vue';
 
-let estado_led = ref(' OFF')
 
-function mostrarON(){
-    console.log('funciona ==> ON')
-    estado_led.value = '  ON... !!'
+let respuesta = ref(null)
+let error = ref(null)
 
-}
+const enviarEstado = async(estado)=>{
 
-const mostrarOFF = () =>{
-    console.log('funciona ==> OFF')
-    estado_led.value = '  OFF... !!'
+    try {
+        const response = await axios.post('https://conexion-led-python.vercel.app/led',{
+            estado_led: estado
+        });
+        respuesta.value = response.data
+        error.value = null
+    } catch (err) {
+        // Manejar errores
+    respuesta.value = null; // Limpiar respuesta previa
+    error.value = 'Hubo un error al enviar los datos: ' + err.message;
+    }
 }
 </script>
