@@ -35,7 +35,7 @@
   const enviarEstado = async (estado) => {
     try {
       // Usamos fetch para enviar la solicitud POST
-      const response = await fetch('http://127.0.0.1:8000/led', {
+      const response = await fetch('https://back-ctrl-led.vercel.app/led', {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain',  // Aseguramos que enviamos un string
