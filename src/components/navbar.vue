@@ -17,7 +17,7 @@
 }
 
 .fuente{
-    font-family:cursive;
+    font-family:serif;
     color: rgb(36, 13, 164);
 }
 </style>
