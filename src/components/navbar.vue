@@ -19,5 +19,6 @@
 .fuente{
     font-family:serif;
     color: rgb(36, 13, 164);
+    font-weight: 700;
 }
 </style>
